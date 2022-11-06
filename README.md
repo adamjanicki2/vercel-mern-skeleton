@@ -1,7 +1,3 @@
-# vercel-MERN-skeleton
-
-## A skeleton for a React/Express/MongoDB web app that is deployable to Vercel!
-
 # How to use the skeleton
 
 ## Get the code
@@ -63,3 +59,5 @@ Let's deploy to vercel!
    - `MONGO_SRV` - your MongoDB connection string
      ![Vercel environment variables](./tutorial_images/env_config.png)
 6. Click "Deploy" and wait for your app to deploy!
+
+## You can check out this skeleton [here](https://vercel-mern-skeleton.vercel.app/)

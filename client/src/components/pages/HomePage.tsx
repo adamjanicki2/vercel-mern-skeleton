@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import logo from "../../logo.svg";
 
 const Home = () => {
@@ -11,6 +10,7 @@ const Home = () => {
         skeleton works. <br /> Clone the repo or use it as a template{" "}
         <a
           target="_blank"
+          rel="noreferrer"
           href="https://github.com/adamjanicki2/vercel-mern-skeleton"
         >
           here
