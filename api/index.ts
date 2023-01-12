@@ -50,7 +50,6 @@ app.use(
 );
 
 // Add sub routers here:
-// app.use(API_PREFIX + "/announcement", announcementRouter);
 app.get("/", (req: Request, res: Response) => {
   return res.status(OK).json({ message: "Hello World" });
 });
