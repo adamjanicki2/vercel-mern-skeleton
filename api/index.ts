@@ -49,8 +49,14 @@ app.use(
   })
 );
 
-// Add sub routers here:
-app.get("/", (req: Request, res: Response) => {
+// Add your sub routers here:
+app.get("/api/*", (req: Request, res: Response) => {
+  console.log(req.query);
+  return res.status(OK).json({ message: "Hello World" });
+});
+
+app.post("/api/*", (req: Request, res: Response) => {
+  console.log(req.body);
   return res.status(OK).json({ message: "Hello World" });
 });
 
