@@ -1,31 +1,54 @@
 import qs from "qs";
+//
+// HTTP stuff
+//
 
-export async function get(endpoint: string, params: Object = {}) {
+type RequestConfig = {
+  method: "GET" | "POST" | "PATCH" | "DELETE";
+  endpoint: string;
+  params?: Record<string, any>;
+  body?: Record<string, any>;
+};
+
+type ApiShape = {
+  error?: string;
+  message?: string;
+  data?: any;
+};
+
+async function fetchApi(config: RequestConfig): Promise<ApiShape> {
+  const { method, endpoint, params = {}, body } = config;
   const pathString = endpoint + "?" + qs.stringify(params);
+  const args: Record<string, any> = {
+    method,
+    headers: { "Content-Type": "application/json" },
+  };
+  if (body) {
+    args["body"] = JSON.stringify(body);
+  }
   try {
-    const res = await fetch(pathString, { method: "GET" });
-    // this will NOT throw error is status is not 200 or 201!
-    return res.json();
-  } catch (error) {
-    // catches error if the response wasn't json parseable
-    // or some other network error etc
-    // modify this behavior to throw a new error for debugging purposes
-    console.log(`GET request to ${pathString} failed!\n${error}`);
-    return null;
+    const res = await fetch(pathString, args);
+    const jsonified = await res.json();
+    return jsonified;
+  } catch (err) {
+    return {
+      error: `${method} request to ${pathString} failed. ${err}`,
+    };
   }
 }
 
-export async function post(endpoint: string, body: Object = {}) {
-  try {
-    const res = await fetch(endpoint, {
-      body: JSON.stringify(body),
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "same-origin",
-    });
-    return res.json();
-  } catch (error) {
-    console.log(`POST req to ${endpoint} failed:\n${error}`);
-    return null;
-  }
+export async function get(endpoint: string, params?: Record<string, any>) {
+  return fetchApi({ method: "GET", endpoint, params });
+}
+
+export async function post(endpoint: string, body?: Record<string, any>) {
+  return fetchApi({ method: "POST", endpoint, body });
+}
+
+export async function patch(endpoint: string, body?: Record<string, any>) {
+  return fetchApi({ method: "PATCH", endpoint, body });
+}
+
+export async function del(endpoint: string, params?: Record<string, any>) {
+  return fetchApi({ method: "DELETE", endpoint, params });
 }

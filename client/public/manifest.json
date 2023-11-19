@@ -1,6 +1,5 @@
 {
-  "short_name": "client",
-  "name": "Vercel MERN Skeleton",
+  "name": "React skeleton",
   "icons": [
     {
       "src": "favicon.ico",
