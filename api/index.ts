@@ -5,8 +5,11 @@ import mongoose from "mongoose";
 import path from "path";
 import * as dotenv from "dotenv";
 import cors from "cors";
+import logger from "morgan";
 import MongoStore from "connect-mongo";
-import { OK } from "../server/util";
+import ExpressMongoSanitize from "express-mongo-sanitize";
+import { OK, SERVER_ERROR } from "../server/util";
+import generalRouter from "../server/router";
 
 dotenv.config();
 
@@ -32,6 +35,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(logger("dev"));
+app.use(ExpressMongoSanitize());
 app.set("port", process.env.PORT ?? 8000);
 
 // sessions
@@ -49,16 +54,9 @@ app.use(
   })
 );
 
+const API_PREFIX = "/api";
 // Add your sub routers here:
-app.get("/api/*", (req: Request, res: Response) => {
-  console.log(req.query);
-  return res.status(OK).json({ message: "Hello World" });
-});
-
-app.post("/api/*", (req: Request, res: Response) => {
-  console.log(req.body);
-  return res.status(OK).json({ message: "Hello World" });
-});
+app.use(API_PREFIX + "/", generalRouter);
 
 const buildDir = path.resolve(__dirname, "..", "client", "build");
 const indexDir = path.join(buildDir, "index.html");
@@ -69,6 +67,11 @@ app.use(express.static(buildDir));
 // Serve index.html for all other routes
 app.get("*", (req: Request, res: Response) => {
   res.status(OK).sendFile(indexDir);
+});
+
+app.use((err: Error, req: Request, res: Response) => {
+  console.error(err.stack);
+  res.status(SERVER_ERROR).send({ error: "Server error" });
 });
 
 const server = http.createServer(app);
