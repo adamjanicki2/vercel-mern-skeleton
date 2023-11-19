@@ -55,8 +55,8 @@ app.use(
 );
 
 const API_PREFIX = "/api";
-// Add your sub routers here:
-app.use(API_PREFIX + "/", generalRouter);
+// Add your routers here:
+app.use(API_PREFIX, generalRouter);
 
 const buildDir = path.resolve(__dirname, "..", "client", "build");
 const indexDir = path.join(buildDir, "index.html");

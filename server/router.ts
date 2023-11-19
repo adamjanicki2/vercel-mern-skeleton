@@ -1,10 +1,16 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { OK } from "./util";
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  return res.status(OK).json({ message: "Welcome to the API" });
+router.get("/hello", (_, res) => {
+  return res
+    .status(OK)
+    .send('<p>"We live in a twilight world...<br />- The Protagonist"</p>');
+});
+
+router.get("/*", (_, res) => {
+  return res.status(OK).json({ data: { message: "Hello world!" } });
 });
 
 export default router;

@@ -20,9 +20,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav
-        className={`flex items-center justify-between w-100 bg-near-black white nav pv2 ph4`}
-      >
+      <nav className="flex items-center justify-between w-100 nav pv2 ph4">
         <div className="flex items-center justify-between bar-container">
           <Link className="nav-title" to="/" unstyled>
             Skeleton
@@ -38,11 +36,12 @@ const Nav = () => {
           </div>
         </div>
         <ul
-          className={`flex items-center desktop link-container`}
+          className="flex items-center desktop link-container ma0"
           style={{ display: open ? "flex" : undefined }}
         >
           <Navlink to="/">Home</Navlink>
           <Navlink to="/about/">About</Navlink>
+          <Navlink to="/api-test/">API Test</Navlink>
         </ul>
       </nav>
       <div className="nav-padding" />
