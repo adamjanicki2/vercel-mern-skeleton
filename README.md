@@ -30,7 +30,7 @@ Now that we have the database, let's test out the app in development mode.
 
 1. From the root of the project, run `npm run dev` to start both the Express server and the React frontend. When you make changes to any files, your app will automatically update for you, so no need to rerun this command.
 2. Open [http://localhost:3000](http://localhost:3000) to view the skeleton in the browser. You should see a spinning donut!
-3. Open [http://localhost:8000/api/](http://localhost:8000/api/) to test the express server. You should see a JSON object with a message: `{message: "Hello World"}`
+3. Open [http://localhost:8000/api/](http://localhost:8000/api/) to test the express server. You should see a JSON object with a message: `{message: "Hello world"}`
 
 ## What to change in the skeleton to make it your own
 
@@ -39,9 +39,9 @@ There's not too much you need to do besides adding all your custom code. Here's 
 1. Change the name of the app in `package.json`
 2. Change the page title in `client/public/index.html`
 3. Change the favicon in `client/public/favicon.ico`
-4. _[Recommended]_ Add your own logos in `client/public/logo192.png` and `client/public/logo512.png`
+4. _[Highly encouraged]_ Add your own logos in `client/public/logo192.png` and `client/public/logo512.png`
 5. Build out your API by adding routers to `server/` and importing them in `api/index.ts`
-6. Build out your frontend by adding pages and components to `client/src/components` and importing them in `client/src/App.tsx`
+6. Build out your frontend by adding pages to `client/src/pages` and components to `client/src/components` and importing them in `client/src/App.tsx`
 7. Happy hacking!
 
 ## How to deploy to Vercel
