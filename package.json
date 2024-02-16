@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "author": "Adam Janicki",
   "dependencies": {
