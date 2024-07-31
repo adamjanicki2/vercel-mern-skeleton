@@ -1,4 +1,4 @@
-import { useAlert } from "@adamjanicki/core-ui";
+import { useAlert } from "src/hooks";
 import { useEffect, useState } from "react";
 import PageWrapper from "src/components/PageWrapper";
 import { get } from "src/util";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
 import "src/components/nav.css";
-import Link from "src/components/basic/Link";
+import { UnstyledLink } from "src/components/Link";
 
 type NavlinkProps = {
   to: string;
@@ -14,7 +14,7 @@ const Nav = () => {
 
   const Navlink = (props: NavlinkProps) => (
     <li className="navlink-li">
-      <Link unstyled className="navlink" onClick={closeMenu} {...props} />
+      <UnstyledLink className="navlink" onClick={closeMenu} {...props} />
     </li>
   );
 
@@ -22,9 +22,9 @@ const Nav = () => {
     <>
       <nav className="flex items-center justify-between w-100 nav pv2 ph4">
         <div className="flex items-center justify-between bar-container">
-          <Link className="nav-title" to="/" unstyled>
+          <UnstyledLink className="nav-title" to="/">
             Skeleton
-          </Link>
+          </UnstyledLink>
           <div className="mobile">
             <Hamburger
               toggled={open}
