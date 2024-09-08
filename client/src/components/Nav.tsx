@@ -19,33 +19,30 @@ const Nav = () => {
   );
 
   return (
-    <>
-      <nav className="flex items-center justify-between w-100 nav pv2 ph4">
-        <div className="flex items-center justify-between bar-container">
-          <UnstyledLink className="nav-title" to="/">
-            Skeleton
-          </UnstyledLink>
-          <div className="mobile">
-            <Hamburger
-              toggled={open}
-              onToggle={() => setOpen(!open)}
-              direction="left"
-              size={24}
-              duration={0.3}
-            />
-          </div>
+    <nav className="flex items-center justify-between w-100 nav pv2 ph4">
+      <div className="flex items-center justify-between bar-container">
+        <UnstyledLink className="nav-title" to="/">
+          Skeleton
+        </UnstyledLink>
+        <div className="mobile">
+          <Hamburger
+            toggled={open}
+            onToggle={() => setOpen(!open)}
+            direction="left"
+            size={24}
+            duration={0.3}
+          />
         </div>
-        <ul
-          className="flex items-center desktop link-container ma0"
-          style={{ display: open ? "flex" : undefined }}
-        >
-          <Navlink to="/">Home</Navlink>
-          <Navlink to="/about/">About</Navlink>
-          <Navlink to="/api-test/">API Test</Navlink>
-        </ul>
-      </nav>
-      <div className="nav-padding" />
-    </>
+      </div>
+      <ul
+        className="flex items-center desktop link-container ma0"
+        style={{ display: open ? "flex" : undefined }}
+      >
+        <Navlink to="/">Home</Navlink>
+        <Navlink to="/about/">About</Navlink>
+        <Navlink to="/api-test/">API Test</Navlink>
+      </ul>
+    </nav>
   );
 };
 
