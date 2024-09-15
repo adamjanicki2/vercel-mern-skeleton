@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Turn as Hamburger } from "hamburger-react";
+import { TripleFade as Hamburger } from "@adamjanicki/ui";
 import "src/components/nav.css";
 import { UnstyledLink } from "src/components/Link";
 
@@ -25,13 +25,7 @@ const Nav = () => {
           Skeleton
         </UnstyledLink>
         <div className="mobile">
-          <Hamburger
-            toggled={open}
-            onToggle={() => setOpen(!open)}
-            direction="left"
-            size={24}
-            duration={0.3}
-          />
+          <Hamburger open={open} onClick={() => setOpen(!open)} />
         </div>
       </div>
       <ul
