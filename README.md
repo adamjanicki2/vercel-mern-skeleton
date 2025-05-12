@@ -4,9 +4,9 @@
 
 You have 3 options for getting the code:
 
+- **_(recommended)_** Click the green "Use this template" button
 - Clone the repo
 - Download the zip file
-- **_recommended_** Click the "Use this template" button
 
 ## Install the dependencies
 
