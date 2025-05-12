@@ -38,19 +38,22 @@ def replace_strings(files, replacements):
 def get_input(message, endless=True):
     value = None
     while value is None or (endless and not value):
-        value = input(message + "\n>>>").strip()
+        value = input(message + "\n>>> ").strip()
     return value
 
 
 def replace_mongo_srv(mongo_srv):
     if mongo_srv:
         mongo_srv = "MONGO_SRV=" + mongo_srv
-        with open(".env", "r") as env_file:
-            content = env_file.read()
-            if "MONGO_SRV=" in content:
-                return
-            if content and content[-1] != "\n":
-                mongo_srv = "\n" + mongo_srv
+        try:
+            with open(".env", "r") as env_file:
+                content = env_file.read()
+                if "MONGO_SRV=" in content:
+                    return
+                if content and content[-1] != "\n":
+                    mongo_srv = "\n" + mongo_srv
+        except:
+            pass
 
         with open(".env", "a") as env_file:
             env_file.write(mongo_srv)
@@ -58,12 +61,12 @@ def replace_mongo_srv(mongo_srv):
 
 def main():
     repo_name = (
-        get_input("What is the name of your repository?\n(e.g. react-skeleton)")
+        get_input("What is the name of your repository?\n(e.g. my-app)")
         .replace(" ", "-")
         .lower()
     )
-    project_name = get_input("What is the name of your project?\n(e.g. React Skeleton)")
-    description = get_input("What is the description of your project?")
+    project_name = get_input("What is the name of your project?\n(e.g. My App)")
+    description = get_input("What is a description of your project?")
     mongo_srv = get_input(
         "What is your mongo connection URL?\n(e.g. mongodb+srv://user:pass@cluster.abc123.mongodb.net/?retryWrites=true&w=majority)",
         endless=False,
@@ -86,6 +89,7 @@ def main():
     os.system("npm install && cd client && npm install && cd ..")
     success("Installed npm dependencies!")
     info("Cleaning up...")
+    os.system("rm -rf tutorial_images")
     os.remove(__file__)
     success("Finished setting up!")
     info("Run `npm run dev` to start the development server.")
