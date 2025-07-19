@@ -3,7 +3,7 @@ import session from "express-session";
 import http from "http";
 import mongoose from "mongoose";
 import path from "path";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import cors from "cors";
 import logger from "morgan";
 import MongoStore from "connect-mongo";
@@ -11,7 +11,7 @@ import ExpressMongoSanitize from "express-mongo-sanitize";
 import { OK, SERVER_ERROR } from "../server/util";
 import generalRouter from "../server/router";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 // some constants
 const MONGO_URL = process.env.MONGO_SRV;
