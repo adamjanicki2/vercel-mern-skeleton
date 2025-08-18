@@ -1,13 +1,15 @@
 import PageWrapper from "src/components/PageWrapper";
 
-const Home = () => (
-  <PageWrapper title="Home">
-    <p className="tc f4 fw4 w-70">
-      You can search for <code>skeleton</code> in your editor to find all places
-      where you should make your own changes. Check out the{" "}
-      <code>README.md</code> for more info.
-    </p>
-  </PageWrapper>
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <PageWrapper title="Home">
+      <p className="ph4 f4 fw5 dark-gray tc">
+        You should run <code>setup.py</code> to auto-rename a bunch of strings.
+        <br />
+        You can search for <code>skeleton</code> in your editor to find all
+        places where you should make your own changes if you really want to do
+        it manually
+      </p>
+    </PageWrapper>
+  );
+}

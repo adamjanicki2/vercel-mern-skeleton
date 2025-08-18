@@ -1,9 +1,14 @@
 import PageWrapper from "src/components/PageWrapper";
+import Link from "src/components/Link";
 
-const NotFound = () => (
-  <PageWrapper documentTitle="404" title="Oops!">
-    <p className="tc f4 fw4">The requested page could not be found.</p>
-  </PageWrapper>
-);
-
-export default NotFound;
+export default function NotFound() {
+  return (
+    <PageWrapper title="404">
+      <p className="ph4 f4 fw5 dark-gray tc">
+        Oops! The requested page does not exist.
+        <br />
+        Try going <Link to="/">home</Link>.
+      </p>
+    </PageWrapper>
+  );
+}

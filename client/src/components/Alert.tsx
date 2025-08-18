@@ -1,14 +1,31 @@
-import { useAlert } from "src/hooks";
-import UIAlert from "@adamjanicki/ui/components/Alert";
+import { useEffect, useState } from "react";
+import useAlert, { type Alert as AlertType } from "src/hooks/useAlert";
+import AlertComponent from "@adamjanicki/ui/components/Alert";
 import "src/components/alert.css";
+import { Animated } from "@adamjanicki/ui";
 
-const Alert = () => {
+export default function Alert() {
   const { alert } = useAlert();
-  return (
-    <div style={{ opacity: Number(Boolean(alert)) }} className="toast">
-      {alert ? <UIAlert type={alert.type}>{alert.message}</UIAlert> : null}
-    </div>
-  );
-};
+  const [savedAlert, setSavedAlert] = useState<AlertType>();
 
-export default Alert;
+  useEffect(() => {
+    if (alert) {
+      setSavedAlert(alert);
+    }
+  }, [alert]);
+
+  return (
+    <Animated
+      animated={Boolean(alert)}
+      className="toast"
+      animateFrom={{ style: { opacity: 0 } }}
+      animateTo={{ style: { opacity: 1 } }}
+    >
+      {savedAlert ? (
+        <AlertComponent type={savedAlert.type}>
+          {savedAlert.message}
+        </AlertComponent>
+      ) : null}
+    </Animated>
+  );
+}
