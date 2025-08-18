@@ -7,17 +7,8 @@ body {
   overflow-x: hidden;
 }
 
-code {
-  background-color: #eee;
-  color: #e7040f;
-  font-size: 90%;
-  border-radius: 4px;
-  padding: 0 0.25rem;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
+p {
+  line-height: 1.5;
 }
 
 .page-title-text {
@@ -26,5 +17,5 @@ a {
 }
 
 .bordering {
-  border: 2px solid green;
+  border: 2px solid red;
 }

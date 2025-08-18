@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PageWrapper from "src/components/PageWrapper";
 import { get } from "src/util";
 
-const ApiTest = () => {
+export default function ApiTest() {
   const { setAlert } = useAlert();
   const [apiResult, setApiResult] = useState("");
   const [error, setError] = useState(false);
@@ -15,6 +15,7 @@ const ApiTest = () => {
         setAlert({ type: "error", message: "Error fetching from API." });
         setError(true);
       } else {
+        setAlert({ type: "success", message: "It works!" });
         setApiResult(JSON.stringify(data));
       }
     };
@@ -24,7 +25,7 @@ const ApiTest = () => {
 
   return (
     <PageWrapper title="API Test">
-      <p className="tc f4 fw4">
+      <p className="ph4 f4 fw5 dark-gray tc">
         The API returned: <code>{apiResult}</code>
         {error ? (
           <>
@@ -42,6 +43,4 @@ const ApiTest = () => {
       </p>
     </PageWrapper>
   );
-};
-
-export default ApiTest;
+}

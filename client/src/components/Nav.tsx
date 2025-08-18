@@ -1,33 +1,42 @@
-import { useState } from "react";
-import { TripleFade as Hamburger } from "@adamjanicki/ui";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Box, TripleFade as Hamburger } from "@adamjanicki/ui";
+import Link, { UnstyledLink } from "src/components/Link";
 import "src/components/nav.css";
-import { UnstyledLink } from "src/components/Link";
 
 type NavlinkProps = {
   to: string;
   children: React.ReactNode;
 };
 
-const Nav = () => {
+export default function Nav() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
+
   const Navlink = (props: NavlinkProps) => (
     <li className="navlink-li">
-      <UnstyledLink className="navlink" onClick={closeMenu} {...props} />
+      <Link className="navlink" onClick={closeMenu} {...props} />
     </li>
   );
 
   return (
     <nav className="flex items-center justify-between w-100 nav pv2 ph4">
-      <div className="flex items-center justify-between bar-container">
+      <Box
+        layout={{ axis: "x", align: "center", justify: "between" }}
+        className="bar-container"
+      >
         <UnstyledLink className="nav-title" to="/">
-          Vercel MERN Skeleton
+          React Skeleton
         </UnstyledLink>
-        <div className="mobile">
+        <Box className="mobile">
           <Hamburger open={open} onClick={() => setOpen(!open)} />
-        </div>
-      </div>
+        </Box>
+      </Box>
       <ul
         className="flex items-center desktop link-container ma0"
         style={{ display: open ? "flex" : undefined }}
@@ -38,6 +47,4 @@ const Nav = () => {
       </ul>
     </nav>
   );
-};
-
-export default Nav;
+}

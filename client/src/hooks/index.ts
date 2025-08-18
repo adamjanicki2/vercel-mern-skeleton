@@ -1,4 +1,4 @@
 import useAlert from "src/hooks/useAlert";
-import useTitle from "src/hooks/useTitle";
+import useDocumentTitle from "src/hooks/useDocumentTitle";
 
-export { useAlert, useTitle };
+export { useAlert, useDocumentTitle };
