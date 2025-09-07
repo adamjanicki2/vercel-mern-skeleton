@@ -1,14 +1,23 @@
-import PageWrapper from "src/components/PageWrapper";
+import Page from "src/components/Page";
 import Link from "src/components/Link";
+import { ui } from "@adamjanicki/ui";
 
 export default function NotFound() {
   return (
-    <PageWrapper title="404">
-      <p className="ph4 f4 fw5 dark-gray tc">
+    <Page title="404">
+      <ui.p
+        vfx={{
+          paddingX: "l",
+          fontSize: "m",
+          fontWeight: 5,
+          color: "muted",
+          textAlign: "center",
+        }}
+      >
         Oops! The requested page does not exist.
-        <br />
+        <ui.br />
         Try going <Link to="/">home</Link>.
-      </p>
-    </PageWrapper>
+      </ui.p>
+    </Page>
   );
 }

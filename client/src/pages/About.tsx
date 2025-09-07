@@ -1,15 +1,24 @@
-import PageWrapper from "src/components/PageWrapper";
+import Page from "src/components/Page";
+import { ui } from "@adamjanicki/ui";
 
 export default function About() {
   return (
-    <PageWrapper title="About">
-      <p className="ph4 f4 fw5 dark-gray tc">
+    <Page title="About">
+      <ui.p
+        vfx={{
+          paddingX: "l",
+          fontSize: "m",
+          fontWeight: 5,
+          color: "muted",
+          textAlign: "center",
+        }}
+      >
         This is a skeleton that can you can use to build a web app. It uses a
         React frontend, an express backend, and a MongoDB database. You can
         deploy it to Vercel for free. In your editor, search for{" "}
-        <code>skeleton</code> to find all places where you should make your own
-        changes.
-      </p>
-    </PageWrapper>
+        <ui.code>skeleton</ui.code> to find all places where you should make
+        your own changes.
+      </ui.p>
+    </Page>
   );
 }
