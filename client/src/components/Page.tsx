@@ -11,7 +11,6 @@ type Props = Omit<BoxProps, "children"> & {
   title?: string;
   documentTitle?: string;
   headerProps?: Omit<HeaderProps, "children">;
-  loading?: boolean;
 };
 
 export default function Page({
@@ -20,7 +19,6 @@ export default function Page({
   vfx,
   documentTitle,
   headerProps,
-  loading,
   style,
   ...rest
 }: Props) {
