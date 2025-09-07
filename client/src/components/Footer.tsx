@@ -1,15 +1,27 @@
 import Link from "src/components/Link";
+import { ui } from "@adamjanicki/ui";
 
-const Footer = () => (
-  <footer className="pv5 ph2 flex items-center justify-center w-100 bt b--moon-gray">
-    <p className="fw5 f5 tc">
-      Cloned from{" "}
-      <Link to="https://github.com/adamjanicki2/vercel-mern-skeleton" external>
-        Vercel MERN Skeleton
-      </Link>
-      , built by Adam
-    </p>
-  </footer>
-);
-
-export default Footer;
+export default function Footer() {
+  return (
+    <ui.footer
+      vfx={{
+        axis: "x",
+        align: "center",
+        justify: "center",
+        paddingY: "xxl",
+        borderTop: true,
+      }}
+    >
+      <ui.p vfx={{ fontWeight: 5 }}>
+        Cloned from{" "}
+        <Link
+          to="https://github.com/adamjanicki2/vercel-mern-skeleton"
+          external
+        >
+          Vercel MERN Skeleton
+        </Link>
+        , built by Adam
+      </ui.p>
+    </ui.footer>
+  );
+}

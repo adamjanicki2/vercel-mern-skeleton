@@ -1,9 +1,0 @@
-.toast {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 32px;
-  z-index: 10000;
-  width: max-content;
-  max-width: 80%;
-}

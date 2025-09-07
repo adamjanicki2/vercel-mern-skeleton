@@ -1,6 +1,7 @@
-import { useAlert } from "src/hooks";
 import { useEffect, useState } from "react";
-import PageWrapper from "src/components/PageWrapper";
+import { ui } from "@adamjanicki/ui";
+import useAlert from "src/hooks/useAlert";
+import Page from "src/components/Page";
 import { get } from "src/util";
 
 export default function ApiTest() {
@@ -24,23 +25,23 @@ export default function ApiTest() {
   }, [setAlert]);
 
   return (
-    <PageWrapper title="API Test">
-      <p className="ph4 f4 fw5 dark-gray tc">
-        The API returned: <code>{apiResult}</code>
-        {error ? (
-          <>
-            <br />
-            <br />
-            Looks like something is off. Did you setup your database correctly?
-          </>
-        ) : (
-          <>
-            <br />
-            <br />
-            All clear!
-          </>
-        )}
-      </p>
-    </PageWrapper>
+    <Page title="API Test">
+      <ui.p
+        vfx={{
+          paddingX: "l",
+          fontSize: "m",
+          fontWeight: 5,
+          color: "muted",
+          textAlign: "center",
+        }}
+      >
+        The API returned: <ui.code>{apiResult}</ui.code>
+        <ui.br />
+        <ui.br />
+        {error
+          ? "Looks like something is off. Did you setup your database correctly?"
+          : "All clear!"}
+      </ui.p>
+    </Page>
   );
 }
