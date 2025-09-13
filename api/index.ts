@@ -20,7 +20,7 @@ if (!MONGO_URL) {
 }
 
 // MongoDB connection using Mongoose
-const mongoClient = mongoose
+mongoose
   .connect(MONGO_URL)
   .then((mongo) => {
     console.log("Connected to MongoDB database.");
@@ -46,7 +46,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     store: MongoStore.create({
-      clientPromise: mongoClient,
+      mongoUrl: MONGO_URL,
       dbName: "sessions",
       autoRemove: "interval",
       autoRemoveInterval: 10,
