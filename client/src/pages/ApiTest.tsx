@@ -18,9 +18,9 @@ export default function ApiTest() {
       } else {
         setAlert({ type: "success", message: "It works!" });
         setApiResult(JSON.stringify(data));
+        setError(false);
       }
     };
-    setError(false);
     setup();
   }, [setAlert]);
 
