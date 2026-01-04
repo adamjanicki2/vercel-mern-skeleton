@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import useAlert from "src/hooks/useAlert";
-import AlertBase from "@adamjanicki/ui/components/Alert";
-import { Icon, Animated } from "@adamjanicki/ui";
+import { Icon, Animated, Alert as UIAlert } from "@adamjanicki/ui";
+import {
+  infoCircle,
+  xCircle,
+  warningCircle,
+  checkCircle,
+} from "@adamjanicki/ui/icons";
 
 const TYPE_TO_ICON = {
-  success: "check-circle",
-  error: "x-circle",
-  warning: "warning-circle",
-  info: "info-circle",
+  success: checkCircle,
+  error: xCircle,
+  warning: warningCircle,
+  info: infoCircle,
 } as const;
 
 export default function Alert() {
@@ -33,13 +38,13 @@ export default function Alert() {
         style={{ left: "50%", transform: "translateX(-50%)" }}
       >
         {!alertToRender ? null : (
-          <AlertBase
+          <UIAlert
             type={alertToRender.type}
             vfx={{ axis: "x", align: "center", gap: "s", width: "max" }}
           >
             <Icon size="s" icon={TYPE_TO_ICON[alertToRender.type]} />
             {alertToRender.message}
-          </AlertBase>
+          </UIAlert>
         )}
       </Animated>
     );

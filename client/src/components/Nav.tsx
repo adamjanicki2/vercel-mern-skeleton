@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { Box, TripleFade as Hamburger, ui } from "@adamjanicki/ui";
-import Link, { UnstyledLink } from "src/components/Link";
+import { useState, type ReactNode } from "react";
+import {
+  Box,
+  TripleFade as Hamburger,
+  ui,
+  Link,
+  UnstyledLink,
+} from "@adamjanicki/ui";
 import "src/components/nav.css";
 
-type NavlinkProps = {
-  to: string;
-  children: React.ReactNode;
-};
-
 export default function Nav() {
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const closeMenu = () => setOpen(false);
-
-  useEffect(() => {
-    closeMenu();
-  }, [pathname]);
-
-  const Navlink = (props: NavlinkProps) => (
-    <Link
-      vfx={{ width: "full", fontWeight: 5, color: "default" }}
-      style={{ whiteSpace: "nowrap" }}
-      onClick={closeMenu}
-      {...props}
-    />
-  );
 
   return (
     <ui.nav vfx={{ paddingY: "s", paddingX: "l" }}>
@@ -33,11 +17,15 @@ export default function Nav() {
         vfx={{ axis: "x", align: "center", justify: "between" }}
         className="bar-container"
       >
-        <UnstyledLink className="nav-title" to="/">
+        <UnstyledLink
+          className="nav-title"
+          to="/"
+          onClick={() => setOpen(false)}
+        >
           React Skeleton
         </UnstyledLink>
         <Box className="mobile">
-          <Hamburger open={open} onClick={() => setOpen(!open)} />
+          <Hamburger open={open} onClick={() => setOpen((prev) => !prev)} />
         </Box>
       </Box>
       <Box
@@ -45,10 +33,30 @@ export default function Nav() {
         // force display to be open on mobile when hamburger is toggled
         style={open ? { display: "flex" } : undefined}
       >
-        <Navlink to="/">Home</Navlink>
-        <Navlink to="/about/">About</Navlink>
-        <Navlink to="/api-test/">API Test</Navlink>
+        <Navlink to="/" onClick={() => setOpen(false)}>
+          Home
+        </Navlink>
+        <Navlink to="/about/" onClick={() => setOpen(false)}>
+          About
+        </Navlink>
+        <Navlink to="/api-test/" onClick={() => setOpen(false)}>
+          API Test
+        </Navlink>
       </Box>
     </ui.nav>
   );
 }
+
+type NavlinkProps = {
+  to: string;
+  children: ReactNode;
+  onClick: () => void;
+};
+
+const Navlink = (props: NavlinkProps) => (
+  <Link
+    vfx={{ width: "full", fontWeight: 5, color: "default" }}
+    style={{ whiteSpace: "nowrap" }}
+    {...props}
+  />
+);
