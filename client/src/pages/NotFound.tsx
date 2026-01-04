@@ -1,6 +1,5 @@
 import Page from "src/components/Page";
-import Link from "src/components/Link";
-import { ui } from "@adamjanicki/ui";
+import { ui, Link } from "@adamjanicki/ui";
 
 export default function NotFound() {
   return (

@@ -1,5 +1,4 @@
-import Link from "src/components/Link";
-import { ui } from "@adamjanicki/ui";
+import { ui, Link } from "@adamjanicki/ui";
 
 export default function Footer() {
   return (
@@ -14,10 +13,7 @@ export default function Footer() {
     >
       <ui.p vfx={{ fontWeight: 5 }}>
         Cloned from{" "}
-        <Link
-          to="https://github.com/adamjanicki2/vercel-mern-skeleton"
-          external
-        >
+        <Link to="https://github.com/adamjanicki2/vercel-mern-skeleton" newTab>
           Vercel MERN Skeleton
         </Link>
         , built by Adam
