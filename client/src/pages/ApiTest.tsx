@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { ui } from "@adamjanicki/ui";
-import useAlert from "src/hooks/useAlert";
+import { useEffect, useState } from "react";
 import Page from "src/components/Page";
+import useAlert from "src/hooks/useAlert";
 import { get } from "src/util";
 
 export default function ApiTest() {

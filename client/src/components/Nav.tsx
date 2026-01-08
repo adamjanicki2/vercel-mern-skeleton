@@ -1,12 +1,13 @@
-import { useState, type ReactNode } from "react";
+import "src/components/nav.css";
+
 import {
   Box,
+  Link,
   TripleFade as Hamburger,
   ui,
-  Link,
   UnstyledLink,
 } from "@adamjanicki/ui";
-import "src/components/nav.css";
+import { type ReactNode, useState } from "react";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);

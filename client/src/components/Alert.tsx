@@ -1,11 +1,11 @@
-import useAlert from "src/hooks/useAlert";
-import { Icon, Animated, Alert as UIAlert } from "@adamjanicki/ui";
+import { Alert as UIAlert, Animated, Icon } from "@adamjanicki/ui";
 import {
-  infoCircle,
-  xCircle,
-  warningCircle,
   checkCircle,
+  infoCircle,
+  warningCircle,
+  xCircle,
 } from "@adamjanicki/ui/icons";
+import useAlert from "src/hooks/useAlert";
 
 const TYPE_TO_ICON = {
   success: checkCircle,
@@ -23,8 +23,8 @@ export default function Alert() {
     <Animated
       visible={shouldShow}
       vfx={{ pos: "fixed", z: "max" }}
-      animateFrom={{ style: { opacity: 0, bottom: 16 } }}
-      animateTo={{ style: { opacity: 1, bottom: 32 } }}
+      from={{ opacity: 0, bottom: 16 }}
+      to={{ opacity: 1, bottom: 32 }}
       style={{ left: "50%", transform: "translateX(-50%)" }}
     >
       {!alert ? null : (
