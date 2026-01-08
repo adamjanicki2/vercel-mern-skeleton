@@ -1,8 +1,8 @@
+import { ui } from "@adamjanicki/ui";
+import Box, { type BoxProps } from "@adamjanicki/ui/components/Box/Box";
 import { classNames } from "@adamjanicki/ui/functions";
 import { useEffect } from "react";
 import type { Children } from "src/types";
-import Box, { type BoxProps } from "@adamjanicki/ui/components/Box/Box";
-import { ui } from "@adamjanicki/ui";
 
 type HeaderProps = React.ComponentProps<typeof ui.h1>;
 

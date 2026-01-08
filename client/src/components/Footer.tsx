@@ -1,4 +1,4 @@
-import { ui, Link } from "@adamjanicki/ui";
+import { Link, ui } from "@adamjanicki/ui";
 
 export default function Footer() {
   return (

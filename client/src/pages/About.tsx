@@ -1,5 +1,5 @@
-import Page from "src/components/Page";
 import { ui } from "@adamjanicki/ui";
+import Page from "src/components/Page";
 
 export default function About() {
   return (
