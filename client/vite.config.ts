@@ -5,7 +5,11 @@ import path from "path";
 import eslint from "vite-plugin-eslint";
 
 export default defineConfig({
-  plugins: [react(), svgr(), eslint({ lintOnStart: true })],
+  plugins: [
+    react(),
+    svgr(),
+    eslint({ lintOnStart: true, include: ["src/**/*.{ts,tsx}"] }),
+  ],
   resolve: {
     alias: {
       src: path.resolve(__dirname, "src"),
