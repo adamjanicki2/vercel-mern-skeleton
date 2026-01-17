@@ -130,12 +130,12 @@ def main() -> None:
     replace_mongo_srv(mongo_srv)
 
     replacements = [
-        ("vercel-mern-skeleton", repo_name),
-        ("Vercel MERN Skeleton", project_name),
         (
             "Site built from Vercel MERN Skeleton",
             description,
         ),
+        ("vercel-mern-skeleton", repo_name),
+        ("Vercel MERN Skeleton", project_name),
         ("2022", f"{datetime.now().year}"),
     ]
 
