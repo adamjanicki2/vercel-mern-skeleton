@@ -12,11 +12,10 @@ export default function Footer() {
       }}
     >
       <ui.p vfx={{ fontWeight: 5 }}>
-        Cloned from{" "}
-        <Link to="https://github.com/adamjanicki2/vercel-mern-skeleton" newTab>
-          Vercel MERN Skeleton
+        Est. 2022 Built from scratch by{" "}
+        <Link to="https://adamjanicki.xyz" newTab>
+          Adam
         </Link>
-        , built by Adam
       </ui.p>
     </ui.footer>
   );

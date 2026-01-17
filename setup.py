@@ -1,77 +1,134 @@
-import os
+import subprocess
 from datetime import datetime
-
-extensions = ".tsx", ".ts", ".json", ".html"
-ignore_files = ("Footer.tsx",)
+from pathlib import Path
 
 
-def success(message):
+EXTENSIONS = {".tsx", ".ts", ".json", ".html"}
+IGNORE_DIRS = {
+    "node_modules",
+    ".git",
+    "build",
+}
+
+
+def success(message: str) -> None:
     print(f"\033[92m{message}\033[0m")
 
 
-def info(message):
+def info(message: str) -> None:
     print(f"\033[96m{message}\033[0m")
 
 
-def find_files():
-    files = []
-    for root, dirs, filenames in os.walk("."):
-        if "node_modules" in root:
-            continue
-        for filename in filenames:
-            if filename.endswith(extensions) and not filename.endswith(ignore_files):
-                files.append(os.path.join(root, filename))
-    return files
+def warn(message: str) -> None:
+    print(f"\033[93m{message}\033[0m")
 
 
-def replace_strings(files, replacements):
-    for file in files:
-        with open(file, "r+") as f:
-            content = f.read()
-            for cur, sub in replacements:
-                content = content.replace(cur, sub)
-            f.seek(0)
-            f.write(content)
-            f.truncate()
-
-
-def get_input(message, endless=True):
-    value = None
-    while value is None or (endless and not value):
-        value = input(message + "\n>>> ").strip()
+def prompt(label: str, transform=None) -> str:
+    value = ""
+    while not value:
+        value = input(label).strip()
+        if transform:
+            value = transform(value)
     return value
 
 
-def replace_mongo_srv(mongo_srv):
-    if mongo_srv:
-        mongo_srv = "MONGO_SRV=" + mongo_srv
-        try:
-            with open(".env", "r") as env_file:
-                content = env_file.read()
-                if "MONGO_SRV=" in content:
-                    return
-                if content and content[-1] != "\n":
-                    mongo_srv = "\n" + mongo_srv
-        except:
-            pass
-
-        with open(".env", "a") as env_file:
-            env_file.write(mongo_srv)
+def iter_target_files(root: Path) -> list:
+    files = []
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        if any(part in IGNORE_DIRS for part in path.parts):
+            continue
+        if path.suffix not in EXTENSIONS:
+            continue
+        files.append(path)
+    return files
 
 
-def main():
-    repo_name = (
-        get_input("What is the name of your repository?\n(e.g. my-app)")
-        .replace(" ", "-")
-        .lower()
+def replace_in_file(path: Path, replacements: list) -> bool:
+    original = path.read_text(encoding="utf-8")
+
+    updated = original
+    for cur, sub in replacements:
+        updated = updated.replace(cur, sub)
+
+    if updated == original:
+        return False
+
+    path.write_text(updated, encoding="utf-8")
+    return True
+
+
+def replace_strings(files: list, replacements: list) -> None:
+    changed = 0
+    for file in files:
+        if replace_in_file(file, replacements):
+            changed += 1
+    success(f"Autoreplaced strings in {changed} file(s)!")
+
+
+def replace_mongo_srv(mongo_srv: str) -> None:
+    if not mongo_srv:
+        return
+
+    env_path = Path(".env")
+    line = f"MONGO_SRV={mongo_srv}"
+
+    if env_path.exists():
+        content = env_path.read_text(encoding="utf-8")
+        if "MONGO_SRV=" in content:
+            return
+        prefix = "" if (not content or content.endswith("\n")) else "\n"
+        env_path.write_text(content + prefix + line, encoding="utf-8")
+    else:
+        env_path.write_text(line, encoding="utf-8")
+
+
+def npm_install() -> None:
+    info("Installing npm dependencies...")
+    subprocess.run(["npm", "install"], check=True)
+    subprocess.run(["npm", "install"], cwd="client", check=True)
+    subprocess.run(
+        ["npm", "install", "@adamjanicki/ui@latest"],
+        cwd="client",
+        stdout=subprocess.DEVNULL,
+        check=True,
     )
-    project_name = get_input("What is the name of your project?\n(e.g. My App)")
-    description = get_input("What is a description of your project?")
-    mongo_srv = get_input(
-        "What is your mongo connection URL?\n(e.g. mongodb+srv://user:pass@cluster.abc123.mongodb.net/?retryWrites=true&w=majority)",
-        endless=False,
+    success("Installed npm dependencies!")
+
+
+def cleanup() -> None:
+    tutorial_images = Path("tutorial_images")
+    if tutorial_images.exists():
+        subprocess.run(["rm", "-rf", "tutorial_images"], check=True)
+
+
+def self_delete(script_path: Path) -> None:
+    script_path.unlink()
+    success("Finished setting up!")
+
+
+def main() -> None:
+    root = Path(".").resolve()
+    script_path = Path(__file__).resolve()
+
+    repo_name = prompt(
+        "What is the name of your repository?\n(e.g. my-app)\n>>> ",
+        transform=lambda s: s.replace(" ", "-").lower(),
     )
+
+    project_name = prompt("What is the name of your project?\n(e.g. My App)\n>>> ")
+
+    description = prompt("What is a description of your project?\n>>> ")
+
+    mongo_srv = input(
+        "What is your mongo connection URL?\n"
+        "(e.g. mongodb+srv://user:pass@cluster.abc123.mongodb.net/?retryWrites=true&w=majority)\n"
+        ">>> "
+    ).strip()
+
     replace_mongo_srv(mongo_srv)
+
     replacements = [
         ("vercel-mern-skeleton", repo_name),
         ("Vercel MERN Skeleton", project_name),
@@ -79,20 +136,21 @@ def main():
             "A skeleton for a React/Express/MongoDB web app that is deployable to Vercel!",
             description,
         ),
+        ("2022", f"{datetime.now().year}"),
     ]
 
     info(f"Setting up {project_name}...")
-    files = find_files()
+
+    files = iter_target_files(root)
     replace_strings(files, replacements)
-    success("Autoreplaced strings in files!")
-    info("Installing npm dependencies...")
-    os.system("npm install && cd client && npm install && cd ..")
-    success("Installed npm dependencies!")
+
+    npm_install()
+
     info("Cleaning up...")
-    os.system("rm -rf tutorial_images")
-    os.remove(__file__)
-    success("Finished setting up!")
-    info("Run `npm run dev` to start the development server.")
+    cleanup()
+    self_delete(script_path)
+
+    info("Run `npm run dev` to start the development server")
 
 
 if __name__ == "__main__":
