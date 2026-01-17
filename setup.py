@@ -133,7 +133,7 @@ def main() -> None:
         ("vercel-mern-skeleton", repo_name),
         ("Vercel MERN Skeleton", project_name),
         (
-            "A skeleton for a React/Express/MongoDB web app that is deployable to Vercel!",
+            "Site built from Vercel MERN Skeleton",
             description,
         ),
         ("2022", f"{datetime.now().year}"),
