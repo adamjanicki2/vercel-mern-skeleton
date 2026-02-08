@@ -3,10 +3,10 @@
   "private": "true",
   "type": "module",
   "dependencies": {
+    "@adamjanicki/store": "^1.0.0",
     "@adamjanicki/ui": "latest",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "zustand": "^5.0.9"
+    "react-dom": "^19.2.3"
   },
   "scripts": {
     "start": "vite",
