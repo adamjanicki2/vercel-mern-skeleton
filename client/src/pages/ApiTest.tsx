@@ -5,7 +5,7 @@ import useAlert from "src/hooks/useAlert";
 import { get } from "src/util";
 
 export default function ApiTest() {
-  const { setAlert } = useAlert();
+  const [, setAlert] = useAlert();
   const [apiResult, setApiResult] = useState("");
   const [error, setError] = useState(false);
 

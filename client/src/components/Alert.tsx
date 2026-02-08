@@ -15,7 +15,7 @@ const TYPE_TO_ICON = {
 } as const;
 
 export default function Alert() {
-  const { alert, visible } = useAlert();
+  const [{ alert, visible }] = useAlert();
 
   const shouldShow = Boolean(alert) && visible;
 
